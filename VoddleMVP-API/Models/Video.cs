@@ -12,7 +12,7 @@ namespace VoddleMVP_API.Models
         public string userId { get; set; }
         public string vidTitle { get; set; }
         public string userPageUrl { get; set; }
-        public DateTime published { get; set; }
+        public string published { get; set; }
         public string description { get; set; }
         public string vidThumbnail { get; set; }
     }

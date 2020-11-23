@@ -11,8 +11,7 @@ namespace VoddleMVP_API.Models
     {
         public VideoContext(DbContextOptions<VideoContext> options) : base(options)
         {
-
         }
-        public DbSet<VideoContext> Videos { get; set; }
+        public DbSet<Video> Videos { get; set; }
     }
 }
