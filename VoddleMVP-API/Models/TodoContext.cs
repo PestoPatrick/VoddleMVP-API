@@ -10,7 +10,6 @@ namespace VoddleMVP_API.Models
     {
         public TodoContext(DbContextOptions<TodoContext> options) : base(options)
         {
-
         }
         public DbSet<TodoItem> TodoItems { get; set; }
     }

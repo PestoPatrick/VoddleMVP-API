@@ -13,5 +13,7 @@ namespace VoddleMVP_API.Models
         {
         }
         public DbSet<Video> Videos { get; set; }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseNpgsql("Host=my_host;Database=my_db;Username=my_user;Password=my_pw");
+
     }
 }
