@@ -20,6 +20,8 @@ namespace VoddleMVP_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<VideoContext>(opt => opt.UseInMemoryDatabase("VideoDB"));
+            services.AddDbContext<UserContext>(opt => opt.UseInMemoryDatabase("UserDB"));
             services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
             services.AddControllers();
         }
