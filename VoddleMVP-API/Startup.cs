@@ -22,7 +22,7 @@ namespace VoddleMVP_API
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddDbContext<TodoContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("")));
+            services.AddDbContext<VideoContext>(opt => opt.UseNpgsql("Host=voddlemvp.ctxryicyfivp.eu-west-2.rds.amazonaws.com;Database=voddlemvp;Username=postgres;Password=sK8z2YJPdL9kKYUYHOV8;"));
             services.AddControllers();
         }
 
