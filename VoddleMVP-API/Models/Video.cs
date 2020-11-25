@@ -14,6 +14,6 @@ namespace VoddleMVP_API.Models
         public string userPageUrl { get; set; }
         public string published { get; set; }
         public string description { get; set; }
-        public string vidThumbnail { get; set; }
+        public string vidThumbnailUrl { get; set; }
     }
 }

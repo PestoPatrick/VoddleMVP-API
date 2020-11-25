@@ -13,9 +13,9 @@ namespace VoddleMVP_API.Controllers
     [ApiController]
     public class VideosController : ControllerBase
     {
-        private readonly VideoContext _context;
+        private readonly VoddleDBContext _context;
 
-        public VideosController(VideoContext context)
+        public VideosController(VoddleDBContext context)
         {
             _context = context;
         }
