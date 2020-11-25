@@ -5,53 +5,53 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using VoddleMVP_API.Models;
+using VoddleMVP_API;
 
 namespace VoddleMVP_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class TblusersController : ControllerBase
     {
-        private readonly VoddleDBContext _context;
+        private readonly voddlemvpContext _context;
 
-        public UsersController(VoddleDBContext context)
+        public TblusersController(voddlemvpContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/Tblusers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Tbluser>>> GetTblusers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Tblusers.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/Tblusers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(string id)
+        public async Task<ActionResult<Tbluser>> GetTbluser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var tbluser = await _context.Tblusers.FindAsync(id);
 
-            if (user == null)
+            if (tbluser == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return tbluser;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Tblusers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(string id, User user)
+        public async Task<IActionResult> PutTbluser(Guid id, Tbluser tbluser)
         {
-            if (id != user.Id)
+            if (id != tbluser.Userid)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(tbluser).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace VoddleMVP_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!TbluserExists(id))
                 {
                     return NotFound();
                 }
@@ -72,19 +72,19 @@ namespace VoddleMVP_API.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Tblusers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Tbluser>> PostTbluser(Tbluser tbluser)
         {
-            _context.Users.Add(user);
+            _context.Tblusers.Add(tbluser);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.Id))
+                if (TbluserExists(tbluser.Userid))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace VoddleMVP_API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetTbluser", new { id = tbluser.Userid }, tbluser);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/Tblusers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(string id)
+        public async Task<IActionResult> DeleteTbluser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var tbluser = await _context.Tblusers.FindAsync(id);
+            if (tbluser == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Tblusers.Remove(tbluser);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(string id)
+        private bool TbluserExists(Guid id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Tblusers.Any(e => e.Userid == id);
         }
     }
 }

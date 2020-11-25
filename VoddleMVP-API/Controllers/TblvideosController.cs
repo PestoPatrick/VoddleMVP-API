@@ -5,53 +5,53 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using VoddleMVP_API.Models;
+using VoddleMVP_API;
 
 namespace VoddleMVP_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VideosController : ControllerBase
+    public class TblvideosController : ControllerBase
     {
-        private readonly VoddleDBContext _context;
+        private readonly voddlemvpContext _context;
 
-        public VideosController(VoddleDBContext context)
+        public TblvideosController(voddlemvpContext context)
         {
             _context = context;
         }
 
-        // GET: api/Videos
+        // GET: api/Tblvideos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Video>>> GetVideos()
+        public async Task<ActionResult<IEnumerable<Tblvideo>>> GetTblvideos()
         {
-            return await _context.Videos.ToListAsync();
+            return await _context.Tblvideos.ToListAsync();
         }
 
-        // GET: api/Videos/5
+        // GET: api/Tblvideos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Video>> GetVideo(string id)
+        public async Task<ActionResult<Tblvideo>> GetTblvideo(Guid id)
         {
-            var video = await _context.Videos.FindAsync(id);
+            var tblvideo = await _context.Tblvideos.FindAsync(id);
 
-            if (video == null)
+            if (tblvideo == null)
             {
                 return NotFound();
             }
 
-            return video;
+            return tblvideo;
         }
 
-        // PUT: api/Videos/5
+        // PUT: api/Tblvideos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVideo(string id, Video video)
+        public async Task<IActionResult> PutTblvideo(Guid id, Tblvideo tblvideo)
         {
-            if (id != video.videoId)
+            if (id != tblvideo.Videoid)
             {
                 return BadRequest();
             }
 
-            _context.Entry(video).State = EntityState.Modified;
+            _context.Entry(tblvideo).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace VoddleMVP_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!VideoExists(id))
+                if (!TblvideoExists(id))
                 {
                     return NotFound();
                 }
@@ -72,19 +72,19 @@ namespace VoddleMVP_API.Controllers
             return NoContent();
         }
 
-        // POST: api/Videos
+        // POST: api/Tblvideos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Video>> PostVideo(Video video)
+        public async Task<ActionResult<Tblvideo>> PostTblvideo(Tblvideo tblvideo)
         {
-            _context.Videos.Add(video);
+            _context.Tblvideos.Add(tblvideo);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (VideoExists(video.videoId))
+                if (TblvideoExists(tblvideo.Videoid))
                 {
                     return Conflict();
                 }
@@ -94,28 +94,28 @@ namespace VoddleMVP_API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetVideo", new { id = video.videoId }, video);
+            return CreatedAtAction("GetTblvideo", new { id = tblvideo.Videoid }, tblvideo);
         }
 
-        // DELETE: api/Videos/5
+        // DELETE: api/Tblvideos/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVideo(string id)
+        public async Task<IActionResult> DeleteTblvideo(Guid id)
         {
-            var video = await _context.Videos.FindAsync(id);
-            if (video == null)
+            var tblvideo = await _context.Tblvideos.FindAsync(id);
+            if (tblvideo == null)
             {
                 return NotFound();
             }
 
-            _context.Videos.Remove(video);
+            _context.Tblvideos.Remove(tblvideo);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool VideoExists(string id)
+        private bool TblvideoExists(Guid id)
         {
-            return _context.Videos.Any(e => e.videoId == id);
+            return _context.Tblvideos.Any(e => e.Videoid == id);
         }
     }
 }
