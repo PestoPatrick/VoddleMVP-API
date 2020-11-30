@@ -78,6 +78,7 @@ namespace VoddleMVP_API.Controllers
         public async Task<ActionResult<Tblvideo>> PostTblvideo(Tblvideo tblvideo)
         {
             _context.Tblvideos.Add(tblvideo);
+            tblvideo.Published = DateTime.Now;
             try
             {
                 await _context.SaveChangesAsync();

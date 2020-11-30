@@ -78,6 +78,7 @@ namespace VoddleMVP_API.Controllers
         public async Task<ActionResult<Tbluser>> PostTbluser(Tbluser tbluser)
         {
             _context.Tblusers.Add(tbluser);
+            tbluser.Userid = Guid.NewGuid();
             try
             {
                 await _context.SaveChangesAsync();
