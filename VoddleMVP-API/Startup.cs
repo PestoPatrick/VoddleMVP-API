@@ -26,20 +26,7 @@ namespace VoddleMVP_API
 
             services.AddDbContext<voddlemvpContext>(options => options.UseNpgsql(Configuration.GetConnectionString("VoddleDatabase")));
             
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)    
-                .AddJwtBearer(options =>    
-                {    
-                    options.TokenValidationParameters = new TokenValidationParameters    
-                    {    
-                        ValidateIssuer = true,    
-                        ValidateAudience = true,    
-                        ValidateLifetime = true,    
-                        ValidateIssuerSigningKey = true,    
-                        ValidIssuer = Configuration["Jwt:Issuer"],    
-                        ValidAudience = Configuration["Jwt:Issuer"],    
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))    
-                    };    
-                });
+            
             
             services.AddControllers();
         }
@@ -56,6 +43,7 @@ namespace VoddleMVP_API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
