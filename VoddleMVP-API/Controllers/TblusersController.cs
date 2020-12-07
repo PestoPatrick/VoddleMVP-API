@@ -22,7 +22,7 @@ namespace VoddleMVP_API.Controllers
         }
 
         // GET: api/Tblusers
-        [HttpGet]
+        [HttpGet, Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<ActionResult<IEnumerable<Tbluser>>> GetTblusers()
         {
             return await _context.Tblusers.ToListAsync();
